@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/JugurthaK/sirene#readme",
   "dependencies": {
+    "mongoose": "^6.0.13",
     "pm2": "^5.1.2"
   }
 }

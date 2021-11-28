@@ -3,17 +3,7 @@ const fs = require('fs');
 const { parser } = require('./utils/parser');
 const { workersInit } = require('./workersInit');
 const { asyncList } = require('./utils/pm2Async');
-
-const notifier = (filename) => {
-  let worker = freeWorkers.shift();
-  pm2.sendDataToProcessId(worker, {
-    type: 'process:msg',
-    data: {
-      subject: 'newFile',
-      file: `./output/${filename}`,
-    },
-  });
-};
+const notifier = require('./utils/notifier');
 
 const freeWorkers = [];
 const notParsedYet = [];
@@ -21,8 +11,12 @@ const notParsedYet = [];
 pm2.launchBus(async (err, bus) => {
   bus.on('process:msg', (packet) => {
     if (packet.data.subject === 'workDone') {
-      // console.log(packet);
-      freeWorkers.push(packet.data.pm_id);
+      if (notParsedYet.length > 0 && freeWorkers.length === 0) {
+        let file = notParsedYet.shift();
+        notifier(packet.data.pm_id, file);
+      } else {
+        freeWorkers.push(packet.data.pm_id);
+      }
     }
   });
 });
@@ -32,16 +26,26 @@ pm2.connect(async (err) => {
     console.error(err);
     process.exit(2);
   }
-  await workersInit(10);
+  await workersInit();
+
   let list = await asyncList();
   list = list.forEach((worker) => {
-    freeWorkers.push(worker.pid);
+    freeWorkers.push(worker.pm_id);
   });
 
-  parser('./sample/sample_10000.csv');
+  parser('./sample/sample_20000.csv');
   fs.watch('./output', (eventType, filename) => {
     if (eventType === 'rename') {
-      notifier(filename);
+      if (freeWorkers.length > 0) {
+        let worker = freeWorkers.shift();
+        console.log('Used:', worker, 'Left:', freeWorkers);
+        notifier(worker, filename);
+      } else {
+        notParsedYet.push(filename);
+        console.log('Currently available:', freeWorkers);
+      }
     }
   });
+
+  console.log('Notparsed', notParsedYet);
 });

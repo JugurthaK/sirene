@@ -1,4 +1,5 @@
 const csvLineToJson = (line) => {
+  const res = {};
   const [
     siren,
     nic,
