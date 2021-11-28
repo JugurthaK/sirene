@@ -4,7 +4,6 @@ const lineParser = require('./lineParser');
 const { createFile } = require('./file');
 
 const output = '/home/jugurthak/epita/sirene/output';
-const files = fs.readdirSync(output);
 
 const parser = (file) => {
   let rows = '';
@@ -16,7 +15,7 @@ const parser = (file) => {
   });
 
   rd.on('line', (line) => {
-    if (rowCounter === 1000) {
+    if (rowCounter === 6000) {
       createFile(fileCounter, rows);
       fileCounter += 1;
       rows = '';
@@ -30,5 +29,5 @@ const parser = (file) => {
 
 // parser('/home/jugurthak/epita/sirene/sample/sample.csv');
 module.exports = { parser };
-// parser('/home/jugurthak/epita/sirene/sample/sample_10000.csv');
+// parser('/home/jugurthak/epita/sirene/sample/sample_20000.csv');
 // parser('/home/jugurthak/epita/csv/StockEtablissement_utf8.csv');

@@ -1,13 +1,14 @@
 const fs = require('fs');
 const readline = require('readline');
 const csvLineToJson = require('./utils/lineParser');
+const { insertInDatabase } = require('./db/mongoose');
 
 console.log('Worker invoked');
 
 process.on('message', (payload) => {
   if (payload.data.subject === 'newFile') {
     const file = payload.data.file;
-
+    const rows = [];
     console.log('Message received');
     const rd = readline.createInterface({
       input: fs.createReadStream(file),
@@ -15,10 +16,11 @@ process.on('message', (payload) => {
     });
 
     rd.on('line', (line) => {
-      const json = JSON.stringify(csvLineToJson(line));
+      const json = csvLineToJson(line);
+      rows.push(json);
     });
-    setTimeout(() => {}, 1500);
 
+    insertInDatabase(rows);
     process.send({
       type: 'process:msg',
       data: {
