@@ -34,7 +34,7 @@ pm2.connect(async (err) => {
   });
 
   //parser('/home/jugurthak/epita/csv/StockEtablissement_utf8.csv');
-  parser('/home/jugurthak/epita/sirene/sample/sample_1000000.csv');
+  parser('./sample/sample_10m.csv');
   fs.watch('./output', (eventType, filename) => {
     if (eventType === 'rename') {
       if (freeWorkers.length > 0) {

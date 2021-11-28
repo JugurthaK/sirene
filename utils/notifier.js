@@ -8,7 +8,7 @@ const notifier = (id, filename) => {
       type: 'process:msg',
       data: {
         subject: 'newFile',
-        file: `/home/jugurthak/epita/sirene/output/${filename}`,
+        file: `./output/${filename}`,
       },
       topic: true,
     },
