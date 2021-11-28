@@ -21,7 +21,9 @@ process.on('message', async (payload) => {
 
     rd.on('pause', async () => {
       try {
-        await insertInDatabase(rows);
+        insertInDatabase(rows)
+          .then((_) => console.log(`${rows.length} pushed to database`))
+          .catch((err) => console.error(err));
       } catch (e) {
         console.error(e);
         process.exit(2);
