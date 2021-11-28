@@ -15,7 +15,7 @@ pm2.launchBus(async (err, bus) => {
         let file = notParsedYet.shift();
         notifier(packet.data.pm_id, file);
       } else {
-        let file = notParsedYet.shift();
+        freeWorkers.push(packet.data.pm_id);
       }
     }
   });
@@ -40,6 +40,7 @@ pm2.connect(async (err) => {
       if (freeWorkers.length > 0) {
         let worker = freeWorkers.shift();
         notifier(worker, filename);
+        console.log(`Free workers: ${freeWorkers.length}`);
       } else {
         notParsedYet.push(filename);
       }
