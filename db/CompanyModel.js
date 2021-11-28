@@ -9,11 +9,9 @@ const CompanySchema = new Schema({
   dateDernierTraitementEtablissement: String,
   typeVoieEtablissement: String,
   libelleVoieEtablissement: String,
-  codePostalEtablissement: String,
-  libelleCommuneEtablissement: String,
-  codeCommuneEtablissement: String,
+  codePostalEtablisssement: String,
   dateDebut: String,
-  etatAdministratifEtablissement: String,
+  etatAdministratifEtablisssement: String,
 });
 
 const Company = mongoose.model('Company', CompanySchema);
