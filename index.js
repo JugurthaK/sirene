@@ -33,19 +33,17 @@ pm2.connect(async (err) => {
     freeWorkers.push(worker.pm_id);
   });
 
+  //parser('/Users/jk/Downloads/StockEtablissement_utf8.csv');
   parser('./sample/sample_20000.csv');
   fs.watch('./output', (eventType, filename) => {
+    console.log(eventType, filename)
     if (eventType === 'rename') {
       if (freeWorkers.length > 0) {
         let worker = freeWorkers.shift();
-        console.log('Used:', worker, 'Left:', freeWorkers);
         notifier(worker, filename);
       } else {
         notParsedYet.push(filename);
-        console.log('Currently available:', freeWorkers);
       }
     }
   });
-
-  console.log('Notparsed', notParsedYet);
 });

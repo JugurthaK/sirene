@@ -1,9 +1,6 @@
 const fs = require('fs');
 const readline = require('readline');
-const lineParser = require('./lineParser');
 const { createFile } = require('./file');
-
-const output = '/home/jugurthak/epita/sirene/output';
 
 const parser = (file) => {
   let rows = '';
@@ -15,7 +12,7 @@ const parser = (file) => {
   });
 
   rd.on('line', (line) => {
-    if (rowCounter === 6000) {
+    if (rowCounter === 2000) {
       createFile(fileCounter, rows);
       fileCounter += 1;
       rows = '';
