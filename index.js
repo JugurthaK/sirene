@@ -18,11 +18,11 @@ pm2.launchBus(async (err, bus) => {
         notifier(packet.data.pm_id, file);
       } else {
         freeWorkers.push(packet.data.pm_id);
-        if (notParsedYet.length === 0 && freeWorkers.length >= 8) {
+        /* if (notParsedYet.length === 0 && freeWorkers.length >= 8) {
           pm2.disconnect();
           let end = performance.now();
           console.log(`Process done in : ${(end - start) / 1000}s`);
-        }
+        } */
       }
     }
   });
