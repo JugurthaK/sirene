@@ -6,7 +6,7 @@ const { insertInDatabase } = require('./db/mongoose');
 console.log('Worker invoked');
 
 process.on('message', async (payload) => {
-  console.log(`In charge of file ${filename}`);
+  console.log(`In charge of file ${payload.data.file}`);
   if (payload.data.subject === 'newFile') {
     const file = payload.data.file;
     const rows = [];
