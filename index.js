@@ -23,7 +23,7 @@ pm2.launchBus(async (err, bus) => {
             'Freeworkers',
             freeWorkers.length,
             'Not parsed Yet',
-            notParserYet.length
+            notParsedYet.length
           );
           pm2.disconnect();
           let end = performance.now();
