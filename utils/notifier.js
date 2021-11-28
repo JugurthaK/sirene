@@ -8,15 +8,12 @@ const notifier = (id, filename) => {
       type: 'process:msg',
       data: {
         subject: 'newFile',
-        file: `/Users/jk/epita_dev/sirene/output/${filename}`,
+        file: `/home/jugurthak/epita/sirene/output/${filename}`,
       },
       topic: true,
     },
     (err) => {
-      if (err)
-        console.error(err)
-      else
-        console.log(`${id} in charge of ${filename}`)
+      if (err) console.error(err);
     }
   );
 };

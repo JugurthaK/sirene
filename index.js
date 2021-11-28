@@ -11,11 +11,11 @@ const notParsedYet = [];
 pm2.launchBus(async (err, bus) => {
   bus.on('process:msg', (packet) => {
     if (packet.data.subject === 'workDone') {
-      if (notParsedYet.length > 0 && freeWorkers.length === 0) {
+      if (notParsedYet.length > 0) {
         let file = notParsedYet.shift();
         notifier(packet.data.pm_id, file);
       } else {
-        freeWorkers.push(packet.data.pm_id);
+        let file = notParsedYet.shift();
       }
     }
   });
@@ -33,10 +33,9 @@ pm2.connect(async (err) => {
     freeWorkers.push(worker.pm_id);
   });
 
-  //parser('/Users/jk/Downloads/StockEtablissement_utf8.csv');
-  parser('./sample/sample_20000.csv');
+  //parser('/home/jugurthak/epita/csv/StockEtablissement_utf8.csv');
+  parser('/home/jugurthak/epita/sirene/sample/sample_1000000.csv');
   fs.watch('./output', (eventType, filename) => {
-    console.log(eventType, filename)
     if (eventType === 'rename') {
       if (freeWorkers.length > 0) {
         let worker = freeWorkers.shift();

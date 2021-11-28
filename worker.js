@@ -5,11 +5,9 @@ const { insertInDatabase } = require('./db/mongoose');
 
 console.log('Worker invoked');
 
-process.on('message', (payload) => {
-  console.log(`Listening for a message`)
+process.on('message', async (payload) => {
   if (payload.data.subject === 'newFile') {
     const file = payload.data.file;
-    console.log(`In charge of file ${file}`)
     const rows = [];
     const rd = readline.createInterface({
       input: fs.createReadStream(file),
@@ -23,13 +21,12 @@ process.on('message', (payload) => {
 
     rd.on('pause', async () => {
       try {
-        insertInDatabase(rows)
-          .then(_ => console.log("Data on database"))
-          .catch(err => console.error(err))
+        await insertInDatabase(rows);
       } catch (e) {
-        console.error(e)
+        console.error(e);
+        process.exit(2);
       }
-    })
+    });
 
     process.send({
       type: 'process:msg',
@@ -38,6 +35,5 @@ process.on('message', (payload) => {
         pm_id: process.env.pm_id,
       },
     });
-    console.log(`File: ${file} parsed`);
   }
 });

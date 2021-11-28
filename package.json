@@ -9,7 +9,7 @@
   "scripts": {
     "test:parser": "time node utils/parser.js",
     "test": "node index.js",
-    "test:clean": "pm2 delete sirene && rm -rf /Users/jk/epita_dev/sirene/output/generated*.csv"
+    "test:clean": "pm2 delete sirene && rm -rf /home/jugurthak/epita/sirene/output/generated*.csv"
   },
   "repository": {
     "type": "git",
