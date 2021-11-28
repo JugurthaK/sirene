@@ -12,7 +12,7 @@ const parser = (file) => {
   });
 
   rd.on('line', (line) => {
-    if (rowCounter === 6000) {
+    if (rowCounter === 5000) {
       createFile(fileCounter, rows);
       fileCounter += 1;
       rows = '';
