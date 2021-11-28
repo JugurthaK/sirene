@@ -1,0 +1,28 @@
+{
+  "name": "sirene",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test:parser": "time node utils/parser.js",
+    "test": "node index.js",
+    "test:clean": "pm2 delete sirene && rm -rf /home/jugurthak/epita/sirene/output/generated*.csv"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JugurthaK/sirene.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JugurthaK/sirene/issues"
+  },
+  "homepage": "https://github.com/JugurthaK/sirene#readme",
+  "dependencies": {
+    "pm2": "^5.1.2"
+  }
+}
