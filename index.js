@@ -1,5 +1,6 @@
 const pm2 = require('pm2');
 const fs = require('fs');
+const { performance } = require('perf_hooks');
 const { parser } = require('./utils/parser');
 const { workersInit } = require('./workersInit');
 const { asyncList } = require('./utils/pm2Async');
@@ -7,6 +8,7 @@ const notifier = require('./utils/notifier');
 
 const freeWorkers = [];
 const notParsedYet = [];
+let start = performance.now();
 
 pm2.launchBus(async (err, bus) => {
   bus.on('process:msg', (packet) => {
@@ -16,6 +18,11 @@ pm2.launchBus(async (err, bus) => {
         notifier(packet.data.pm_id, file);
       } else {
         freeWorkers.push(packet.data.pm_id);
+        if (notParsedYet.length === 0 && freeWorkers.length >= 8) {
+          pm2.disconnect();
+          let end = performance.now();
+          console.log(`Process done in : ${(end - start) / 1000}s`);
+        }
       }
     }
   });
