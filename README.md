@@ -19,12 +19,22 @@ This project is simulating a worker pool;
    - Else, the worker is sent to the freeWorkers array
 7. When the array of "need to be processed" file is empty, the process is done
 
-## 3 - What about pushin 31M rows into a fully local environement ?
+## 3 - Predictions
+
+Using 5k rows bulk, with my architecture and only parsing a 1 million rows file. Here are the results
+
+![max rows](https://cdn.discordapp.com/attachments/908788450621280336/914612146736877639/unknown.png)
+
+## 4 - What about pushin 31M rows into a fully local environement ?
 
 Even with a fully setup mongo, I cant do more than 27 178 810 rows
 
 ![max rows](https://media.discordapp.net/attachments/908788450621280336/914593097684488212/unknown.png)
 
-## 4 - Predictions
+## 5 - How to run this project
 
-Using 6k rows bulk, with my architecture
+`npm i && npm run start`
+
+If you want to clean your workspace
+
+`npm run clean`

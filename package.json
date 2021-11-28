@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test:parser": "time node utils/parser.js",
-    "test": "node index.js",
-    "test:clean": "pm2 delete sirene && rm -rf /home/ubuntu/toremove/sirene/output/generated*.csv"
+    "start": "node index.js",
+    "clean": "pm2 delete sirene && rm -rf /home/ubuntu/toremove/sirene/output/generated*.csv"
   },
   "repository": {
     "type": "git",
