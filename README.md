@@ -24,3 +24,7 @@ This project is simulating a worker pool;
 Even with a fully setup mongo, I cant do more than 27 178 810 rows
 
 ![max rows](https://media.discordapp.net/attachments/908788450621280336/914593097684488212/unknown.png)
+
+## 4 - Predictions
+
+Using 6k rows bulk, with my architecture

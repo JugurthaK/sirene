@@ -19,10 +19,17 @@ pm2.launchBus(async (err, bus) => {
       } else {
         freeWorkers.push(packet.data.pm_id);
         if (notParsedYet.length === 0 && freeWorkers.length >= 8) {
-	  console.log("Freeworkers", freeWorkers.length, "Not parsed Yet", notParserYet.length)
+          console.log(
+            'Freeworkers',
+            freeWorkers.length,
+            'Not parsed Yet',
+            notParserYet.length
+          );
           pm2.disconnect();
           let end = performance.now();
-          console.log(`1 million line parsing, Process done in : ${(end - start) / 1000}s`);
+          console.log(
+            `1 million line parsing, Process done in : ${(end - start) / 1000}s`
+          );
         }
       }
     }
@@ -48,7 +55,6 @@ pm2.connect(async (err) => {
       if (freeWorkers.length > 0) {
         let worker = freeWorkers.shift();
         notifier(worker, filename);
-        // console.log(`Free workers: ${freeWorkers.length}`);
       } else {
         notParsedYet.push(filename);
       }
