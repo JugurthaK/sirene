@@ -49,8 +49,8 @@ pm2.connect(async (err) => {
     freeWorkers.push(worker.pm_id);
   });
 
-  //parser('/home/jugurthak/epita/csv/StockEtablissement_utf8.csv');
-  parser('./sample/sample.csv');
+  parser('../StockEtablissement_utf8.csv');
+  //parser('./sample/sample.csv');
   fs.watch('./output', (eventType, filename) => {
     if (eventType === 'rename') {
       if (freeWorkers.length > 0) {

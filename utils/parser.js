@@ -22,10 +22,6 @@ const parser = (file) => {
       rowCounter += 1;
     }
   });
-
-  rd.on('pause', () => {
-    createFile(fileCounter++, rows)
-  })
 };
 
 // parser('/home/jugurthak/epita/sirene/sample/sample.csv');
