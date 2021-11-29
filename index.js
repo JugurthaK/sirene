@@ -28,8 +28,9 @@ pm2.launchBus(async (err, bus) => {
           pm2.disconnect();
           let end = performance.now();
           console.log(
-            `1 million line parsing, Process done in : ${(end - start) / 1000}s`
+            `Process done in : ${end - start} ms`
           );
+	  process.exit(0)
         }
       }
     }
